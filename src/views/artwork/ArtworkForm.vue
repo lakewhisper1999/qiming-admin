@@ -22,6 +22,9 @@
       <el-form-item label="下载URL" prop="downloadUrl">
         <el-input v-model="form.downloadUrl" placeholder="下载链接（可选）" />
       </el-form-item>
+      <el-form-item label="视频嵌入地址" prop="videoUrl">
+        <el-input v-model="form.videoUrl" placeholder="B站/YouTube 视频页链接（可选，前端以嵌入方式播放）" />
+      </el-form-item>
       <el-form-item label="文件大小" prop="fileSize">
         <el-input-number v-model="form.fileSize" :min="0" placeholder="字节" style="width:100%" />
       </el-form-item>
@@ -56,6 +59,7 @@ const form = reactive({
   imageList: '',
   description: '',
   downloadUrl: '',
+  videoUrl: '',
   fileSize: 0
 })
 
@@ -81,7 +85,7 @@ function syncCoverUrl(imageListStr) {
 
 function resetForm() {
   formEl.value?.resetFields()
-  Object.assign(form, { title: '', categoryId: null, coverUrl: '', imageUrls: '', imageList: '', description: '', downloadUrl: '', fileSize: 0 })
+  Object.assign(form, { title: '', categoryId: null, coverUrl: '', imageUrls: '', imageList: '', description: '', downloadUrl: '', videoUrl: '', fileSize: 0 })
 }
 
 function buildImageList(coverUrl, imageUrlsStr) {
@@ -107,12 +111,13 @@ function open(row) {
       imageList: JSON.stringify(buildImageList(row.coverUrl, row.imageUrls)),
       description: row.description || '',
       downloadUrl: row.downloadUrl || '',
+      videoUrl: row.videoUrl || '',
       fileSize: row.fileSize || 0
     })
   } else {
     isEdit.value = false
     editId.value = null
-    Object.assign(form, { title: '', categoryId: null, coverUrl: '', imageUrls: '', imageList: '', description: '', downloadUrl: '', fileSize: 0 })
+    Object.assign(form, { title: '', categoryId: null, coverUrl: '', imageUrls: '', imageList: '', description: '', downloadUrl: '', videoUrl: '', fileSize: 0 })
   }
 }
 
